@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .container {
+      width: 800px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .img-container {
+      width: 120px;
+      height: 120px;
+
+      max-width: 120px;
+      max-height: 120px;
+    }
+
+    span {
+      margin: 10px 0;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img class="img-container" src="{{SYSTEM_LOGO}}" />
+    <br>
+
+    <span>Prezados,</span>
+
+    <br />
+
+    <span>Segue anexo o relatório de execução diária de Jobs</span>
+    <span>Em resumo, houveram: </span>
+    <span>{{completed}} jobs completados com sucesso e {{failed}} jobs falhados.</span>
+
+    <br>
+    <strong>Atenciosamente!</strong>
+
+    <h3>Equipe | <strong>{{SYSTEM_NICKNAME}}</strong></h3>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+version:  "3.7"
+
+services: 
+
+  redis_db:
+    container_name: redis_db
+    image: docker.io/bitnami/redis:latest
+    environment:
+      - REDIS_PASSWORD=BCKBA*&Vb23
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+
+  postgres_db:
+    image: postgres
+    container_name: postgres_db
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=ignite
+      - POSTGRES_DB=barbearia
+      - TZ='GMT-3'
+      - PGTZ='GMT-3'
+    volumes:
+      - pgdata:/data/postgres
+  app:
+    build: .
+    container_name: app
+    ports:
+      - 3000:3000
+    volumes: 
+        - .:/usr/app
+    links:
+    - postgres_db
+    - redis_db
+    depends_on: 
+    - postgres_db
+    - redis_db
+
+
+volumes:
+    pgdata:
+      driver: local
+    redis_data:
+      driver: local  

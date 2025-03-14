@@ -1,0 +1,53 @@
+[
+    {
+       "cdUnidOper":"076367",
+       "codHolding":null,
+       "codMatriz":null,
+       "codFilial":null,
+       "razaoSocial":"Escritorio De Passo Fundo",
+       "codUf":"RS",
+       "selecionado":false,
+       "statusSitLibEnv":{
+          "codStatus":0,
+          "desc":"Aberto"
+       },
+       "statusSitSolicApur":{
+          "codStatus":2,
+          "desc":"Finalizada"
+       }
+    },
+    {
+       "cdUnidOper":"076934",
+       "codHolding":null,
+       "codMatriz":null,
+       "codFilial":null,
+       "razaoSocial":"Coord. Nucleo De Canoas",
+       "codUf":"RS",
+       "selecionado":false,
+       "statusSitLibEnv":{
+          "codStatus":1,
+          "desc":"Fechado"
+       },
+       "statusSitSolicApur":{
+          "codStatus":2,
+          "desc":"Finalizada"
+       }
+    },
+    {
+       "cdUnidOper":"076943",
+       "codHolding":null,
+       "codMatriz":null,
+       "codFilial":null,
+       "razaoSocial":"Base De Bage",
+       "codUf":"RS",
+       "selecionado":false,
+       "statusSitLibEnv":{
+          "codStatus":1,
+          "desc":"Fechado"
+       },
+       "statusSitSolicApur":{
+          "codStatus":2,
+          "desc":"Finalizada"
+       }
+    }
+ ]

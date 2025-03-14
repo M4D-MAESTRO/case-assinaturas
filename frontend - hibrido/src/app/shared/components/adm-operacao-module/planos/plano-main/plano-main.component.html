@@ -1,0 +1,55 @@
+<br>
+<div class="card main-view">
+  <p-dataView *ngIf="isLoaded" emptyMessage="Nada encontrado, experimente escolher outro filtro" class="data-container"
+    #dv [lazy]="true" [value]="planos.data" [paginator]="true" [rows]="planos.meta.take"
+    [totalRecords]="planos.meta.itemCount" [pageLinks]="planos.meta.pageCount" (onLazyLoad)="paginar($event)"
+    filterBy="nome" layout="list">
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-end mb-2">
+        <p-button icon="pi pi-plus" label="Novo" (click)="createNew()">
+        </p-button>
+      </div>
+
+      <div class="flex flex-column md:flex-row md:justify-content-center">
+        <span class="p-input-icon-right mb-2 md:mb-0 ">
+          <i class="pi pi-search cursor-pointer text-primary" (click)="search()"></i>
+          <input type="search" pInputText [(ngModel)]="searchedPlano" [ngModelOptions]="{standalone: true}"
+            placeholder="Buscar " (keyup.enter)="search()">
+        </span>
+      </div>
+
+    </ng-template>
+    <ng-template let-data pTemplate="listItem">
+      <div *ngIf="isLoaded" #templateGrid class="col-12">
+        <div class="data-list-item">
+          <div class="data-list-detail">
+            <div class="data-name">{{ data.nome }}</div>
+            <div class="mt-1 mb-3">{{ data.descricao }}</div>
+            <div class="mt-1">Custo mensal: {{ data.custo_mensal ? (data.custo_mensal | currency:'BRL': '(R$)') : ('Não
+              estipulado') }}</div>
+            <div class="mt-3">Preço mensal: {{ data.valor_mensal | currency:'BRL': '(R$)' }}</div>
+            <div class="mt-1">Preço trimestral: {{ data.valor_trimestral ? (data.valor_trimestral | currency:'BRL':
+              '(R$)') : ('Não cadastrado') }}</div>
+            <div class="mt-1">Preço semestral: {{ data.valor_semestral ? (data.valor_semestral | currency:'BRL': '(R$)')
+              : ('Não cadastrado') }}</div>
+            <div class="mt-1">Preço anual: {{ data.valor_anual ? (data.valor_anual | currency:'BRL': '(R$)') : ('Não
+              cadastrado') }}</div>
+          </div>
+          <div class="data-list-action">
+            <p-button icon="pi pi-pencil" label="Editar" (click)="editar(data)">
+            </p-button>
+            <!--
+              <button pButton type="button" class="p-button-outlined" icon="pi pi-tags" label="Itens"
+              (click)="showItens(data)">
+            </button>
+            -->
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>

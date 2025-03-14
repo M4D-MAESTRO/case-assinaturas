@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ADM. Financeira</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content appScrollTheme>
+  <ion-segment class="background-segment" [(ngModel)]="currentTab" [ngModelOptions]="{standalone: true}"
+    (ionChange)="changeTab($event)">
+    <ion-segment-button style="margin-left: 5px; max-width: 200px" layout="icon-start" value="transacoes">
+      <ion-icon style="font-size: 1.2em" name="cash-outline"></ion-icon>
+      <ion-label text-wrap class="wrap-text" style="font-size: 1.1em">
+        Transações
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-segment class="background-segment" [(ngModel)]="currentTab" [ngModelOptions]="{standalone: true}"
+    (ionChange)="changeTab($event)">
+    <ion-segment-button style="margin-left: 5px; max-width: 200px" layout="icon-start" value="pedidos">
+      <ion-icon style="font-size: 1.2em" name="bag-outline"></ion-icon>
+      <ion-label text-wrap class="wrap-text" style="font-size: 1.1em">
+        Pedidos
+      </ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button style="max-width: 200px" layout="icon-start" value="prestacao-servicos">
+      <ion-icon style="font-size: 1.2em" name="build-outline"></ion-icon>
+      <ion-label style="font-size: 1.1em"> Serviços </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <br>
+  <ng-container *ngIf="currentTab === 'transacoes'">
+    <div style="max-width: 95%; margin: auto">
+      <app-transacoes-main></app-transacoes-main>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentTab === 'prestacao-servicos'">
+    <div style="max-width: 95%; margin: auto">
+      <app-prestacao-servico-main></app-prestacao-servico-main>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="currentTab === 'pedidos'">
+    <div style="max-width: 95%; margin: auto">
+      <app-pedido-main></app-pedido-main>
+    </div>
+  </ng-container>
+</ion-content>

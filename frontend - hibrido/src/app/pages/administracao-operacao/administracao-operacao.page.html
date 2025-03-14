@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>ADM. Operação</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content appScrollTheme>
+  <br />
+
+  <ion-segment class="background-segment" [(ngModel)]="currentTab" [ngModelOptions]="{standalone: true}"
+    (ionChange)="changeTab($event)">
+    <ion-segment-button style="margin-left: 5px; max-width: 200px" layout="icon-start" value="planos">
+      <fa-icon style="font-size: 1.2em;" [icon]="['fas', 'file-signature']"></fa-icon>
+      <ion-label text-wrap class="wrap-text" style="font-size: 1.1em">
+        Planos
+      </ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button style="margin-left: 5px; max-width: 200px" layout="icon-start" value="itens-plano">
+      <fa-icon style="font-size: 1.2em;" [icon]="['fas', 'gift']"></fa-icon>
+      <ion-label text-wrap class="wrap-text" style="font-size: 1.1em">
+        Itens de Plano
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <br />
+
+
+  <ng-container *ngIf="currentTab === 'planos'">
+    <div style="max-width: 95%; margin: auto">
+      <app-plano-main></app-plano-main>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="currentTab === 'itens-plano'">
+    <div style="max-width: 95%; margin: auto">
+      <app-itens-de-plano-main></app-itens-de-plano-main>
+    </div>
+  </ng-container>
+
+
+</ion-content>

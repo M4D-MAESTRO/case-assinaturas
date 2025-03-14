@@ -1,0 +1,51 @@
+<div class="grid h-full w-full mx-1 my-1">
+  <p-panel header="Itens" [toggleable]="true">
+    <p-table *ngIf="itens" [value]="itens.data" [lazy]="true" [paginator]="true" [rows]="itens.meta.take"
+      [totalRecords]="itens.meta.itemCount" [pageLinks]="itens.meta.pageCount" (onLazyLoad)="paginar($event)"
+      dataKey="id" [tableStyle]="{'min-width': '65rem'}" [selection]="selectedItens"
+      (selectionChange)="onSelectionChange($event)" [selectAll]="selectAll" (onRowUnselect)="onRowUnselect($event)"
+      (selectAllChange)="onSelectAllChange($event)" [loading]="loading" [globalFilterFields]="['name']">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem"></th>
+          <th>Nome
+          </th>
+          <th>Descrição</th>
+          <th>Detalhar</th>
+        </tr>
+        <tr>
+          <th style="width: 4rem">
+          </th>
+          <th>
+            <span class="p-input-icon-right mb-2 md:mb-0 ">
+              <i class="pi pi-search cursor-pointer text-primary" (click)="search()"></i>
+              <input type="search" pInputText [(ngModel)]="searchedItem" [ngModelOptions]="{standalone: true}"
+                placeholder="Buscar" (keyup.enter)="search()">
+            </span>
+            <button pButton pRipple type="button" label="Limpar" class="mt-1 p-button-rounded p-button"
+              (click)="clear()"></button>
+          </th>
+          <th></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-i>
+        <tr>
+          <td>
+            <p-tableCheckbox [value]="i"></p-tableCheckbox>
+          </td>
+          <td>{{i.nome}}</td>
+          <td>{{i.descricao}}</td>
+          <td>
+            <p-button icon="pi pi-search" (click)="detail(i)">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-panel>
+</div>
+
+
+<app-question-item-plano [showDialog]="showDialog" [selectedItemDePlano]="selectedItem"
+(closeEvent)="selectedServico = undefined; showDialog = false;"></app-question-item-plano>

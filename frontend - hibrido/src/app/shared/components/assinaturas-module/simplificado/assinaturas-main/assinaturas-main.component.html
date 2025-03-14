@@ -1,0 +1,69 @@
+<div class="surface-ground px-4 py-8 md:px-6 lg:px-8">
+    <div class="text-900 font-bold text-6xl mb-4 text-center">Planos</div>
+
+    <div class="flex w-full align-items-center justify-content-center px-1 mb-2
+    border-1 surface-border border-round-lg">
+        <span class="p-input-icon-left w-full ">
+            <i class="pi pi-search text-500 cursor-pointer" (click)="doSearch()"></i>
+            <input type="text" pInputText placeholder="Procurar" class="w-full border-none shadow-none outline-none"
+            [(ngModel)]="searchedPlano" [ngModelOptions]="{standalone: true}" (keyup.enter)="doSearch()" />
+        </span>
+        <span class="border-1 p-1 surface-border border-round surface-100 mr-2
+         text-600 text-xs hidden md:block cursor-pointer" (click)="clearSearch()">Limpar</span>
+    </div>
+
+    <div class="grid">
+        <ng-container *ngIf="planos">
+            <div *ngFor="let p of planos.data" class="col-12 lg:col-4">
+                <div class="p-3 h-full">
+                    <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
+                        <div class="text-900 font-medium text-xl mb-2">{{ p.nome }}</div>
+                        <div class="text-600">{{ p.descricao }}</div>
+                        <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+                        <div class="flex align-items-center">
+                            <span class="font-bold text-2xl text-900">R$ {{ p.valor_mensal }}</span>
+                            <span class="ml-2 font-medium text-600">Mensal</span>
+                        </div>
+                        <div *ngIf="p.valor_trimestral" class="flex align-items-center mt-2">
+                            <span class="font-bold text-2xl text-900">R$ {{ p.valor_trimestral }}</span>
+                            <span class="ml-2 font-medium text-600">Trimestral</span>
+                        </div>
+                        <div *ngIf="p.valor_semestral" class="flex align-items-center mt-2">
+                            <span class="font-bold text-2xl text-900">R$ {{ p.valor_semestral }}</span>
+                            <span class="ml-2 font-medium text-600">Semestral</span>
+                        </div>
+                        <div *ngIf="p.valor_anual" class="flex align-items-center mt-2">
+                            <span class="font-bold text-2xl text-900">R$ {{ p.valor_anual }}</span>
+                            <span class="ml-2 font-medium text-600">Anual</span>
+                        </div>
+                        <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
+                        <ul class="list-none p-0 m-0 flex-grow-1">
+                            <li *ngFor="let i of p.itens" class="flex align-items-center mb-3">
+                                <i class="pi pi-check-circle text-primary mr-2"></i>
+                                <span class="text-900">{{ i.item.nome }} - 
+                                    <span *ngIf="i.item.quantidade" class="text-xs">{{ i.item.quantidade }} unidade(s)</span>
+                                    <span *ngIf="!i.item.quantidade" class="text-xs">ilimitado</span>
+                                </span>
+                            </li>
+                        </ul>
+                        <hr class="mb-3 mx-0 border-top-1 border-none surface-border" />
+                        <button pButton pRipple label="Assinar agora!" class="p-3 w-full p-button-outlined"
+                        (click)="assinar(p)"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <p-paginator [paginator]="true" [rows]="planos.meta.take" [totalRecords]="planos.meta.itemCount"
+                    [pageLinks]="planos.meta.pageCount" (onPageChange)="paginar($event)"></p-paginator>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="!planos">
+            <div class="border-circle border-1 border-primary">
+                <app-attention-surface title="Atenção" subtitle="Vazio"
+                    message="Nenhum plano encontrado"></app-attention-surface>
+            </div>
+        </ng-container>
+    </div>
+</div>

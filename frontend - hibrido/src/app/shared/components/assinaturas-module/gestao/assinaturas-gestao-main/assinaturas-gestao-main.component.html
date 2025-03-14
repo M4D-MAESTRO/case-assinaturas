@@ -1,0 +1,107 @@
+<div class="card main-view">
+  <p-dataView *ngIf="assinaturas && clientes && planos" emptyMessage="Nada encontrado, experimente trocar os filtros"
+    class="data-container" #dv [lazy]="true" [value]="assinaturas.data" [paginator]="true"
+    [rows]="assinaturas.meta.take" [totalRecords]="assinaturas.meta.itemCount" [pageLinks]="assinaturas.meta.pageCount"
+    (onLazyLoad)="paginarAssinatura($event)" filterBy="nome" layout="list">
+    <ng-template pTemplate="header">
+      <div class="flex flex-column md:flex-row md:justify-content-between mb-2">
+        <p-dropdown #dropdown_planos [options]="planos.data" styleClass="mb-2 md:mb-0"
+          (onClear)="clearPlanoFilter($event)" (onChange)="changePlano($event)" [showClear]="true" [filter]="true"
+          placeholder="Selecione um plano" [virtualScroll]="true" [virtualScrollItemSize]="38" [lazy]="true"
+          [virtualScrollOptions]="{ showLoader: true, loading: loading, delay: 250 }"
+          (onLazyLoad)="paginarPlanos($event)" (onFilter)="onPlanoFilter($event)"
+          (onFocus)="blurPlanos($event, dropdown_planos)" optionValue="id" optionLabel="nome"
+          [(ngModel)]="selectedPlano">
+          <ng-template pTemplate="loader" let-options="options">
+            <div class="flex align-items-center py-2 px-3" style="height: 38px">
+              <p-skeleton [width]="options.even ? '60%' : '50%'" height="1rem"></p-skeleton>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <p-dropdown #drop_cliente [options]="clientes.data" styleClass="mb-2 md:mb-0" (onClear)="clearFilter($event)"
+          [showClear]="true" [filter]="true" placeholder="Selecione o assinante" [virtualScroll]="true"
+          [virtualScrollItemSize]="38" [lazy]="true" (onChange)="changeCliente($event)"
+          [virtualScrollOptions]="{ showLoader: true, loading: loading, delay: 250 }"
+          (onLazyLoad)="paginarCliente($event)" (onFilter)="onClienteFilter($event)"
+          (onFocus)="blurCliente($event, drop_cliente)" optionValue="id" optionLabel="nome"
+          [(ngModel)]="selectedCliente" >
+          <ng-template pTemplate="loader" let-options="options">
+            <div class="flex align-items-center py-2 px-3" style="height: 38px">
+              <p-skeleton [width]="options.even ? '60%' : '50%'" height="1rem"></p-skeleton>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <p-dropdown #dropdown_filtro [options]="sortOptions" placeholder="Status" (onChange)="changeFiltro($event)"
+          (onClear)="clearFilter($event)" [showClear]="true" styleClass="mb-2 md:mb-0"></p-dropdown>
+      </div>
+
+      <div class="flex flex-column md:flex-row md:justify-content-end">
+        <button pButton type="button" class="p-button-outlined p-button-danger sm:ml-2 mt-2" icon="pi pi-times"
+          label="Limpar filtros" (click)="clearAllFilters($event, dropdown_planos, dropdown_filtro)">
+        </button>
+      </div>
+
+      <div class="flex flex-column md:flex-row md:justify-content-end">
+        <p-button class="sm:ml-2 mt-2" icon="pi pi-plus" label="Nova assinatura" (click)="createNewAssinatura()">
+        </p-button>
+      </div>
+
+      <div class="flex justify-content-center">
+        <span class="p-input-icon-right mb-2 md:mb-0 mt-2">
+          <i class="pi pi-search cursor-pointer text-primary" (click)="searchAssinatura()"></i>
+          <input type="search" pInputText [(ngModel)]="searchedAssinatura" [ngModelOptions]="{standalone: true}"
+            placeholder="ID ou código da assinatura" (keyup.enter)="searchAssinatura()">
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template let-assinatura pTemplate="listItem">
+      <div #templateGrid class="col-12">
+        <div class="data-list-item">
+          <div class="crop mb-2 md:mb-0 ">
+            <img class="border-circle border-2 border-primary" [src]="setUserImage(assinatura.assinante)"
+              [alt]="assinatura.assinante.nome" />
+          </div>
+          <div class="data-list-detail">
+            <div class="data-name">{{ assinatura.id }}</div>
+            <div class="data-description mt-2">Status: {{ assinatura.status }}</div>
+            <div class="data-description mt-2">Plano: {{ assinatura.plano_assinatura?.nome }}</div>
+            <div class="data-description mt-1">Cliente: {{ assinatura.assinante?.nome || "Cliente não identificado"
+              }}</div>
+            <div class="data-description mt-2">Modalidade: {{ assinatura.modalidade }}</div>
+            <div class="mt-3">
+              <i class="pi pi-play data-category-icon text-primary"></i>
+              <span class="data-category">Início:
+                {{assinatura.data_inicio | date: 'dd/MM/yyyy -
+                HH:mm:ss' }}h</span>
+              <br><br>
+              <i class="pi pi-stopwatch data-category-icon text-primary"></i>
+              <span class="data-category">Fim (previsão):
+                {{assinatura.data_fim | date: 'dd/MM/yyyy -
+                HH:mm:ss' }}h</span>
+            </div>
+          </div>
+          <div class="data-list-action">
+            <button pButton type="button" class="p-button-info" icon="pi pi-file-edit" label="Detalhar assinatura"
+              (click)="openDetailAssinatura(assinatura)">
+            </button>
+            <button *ngIf="showStartButton(assinatura)" pButton type="button" class="mt-2 p-button-success"
+              icon="pi pi-play" label="Iniciar assinatura" (click)="startAssinatura(assinatura)">
+            </button>
+            <button *ngIf="showPauseButton(assinatura)" pButton type="button" class="mt-2 p-button-warning"
+              icon="pi pi-pause" label="Pausar assinatura" (click)="pauseAssinatura(assinatura)">
+            </button>
+            <button *ngIf="showCancelButton(assinatura)" pButton type="button" class="p-button-outlined p-button-danger"
+              icon="pi pi-times" label="Cancelar assinatura" (click)="cancelAssinatura(assinatura)">
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>
+
+<p-confirmDialog acceptLabel="Sim" rejectLabel="Não" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"></p-confirmDialog>

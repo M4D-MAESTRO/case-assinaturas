@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    .container {
+      width: 800px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .img-container {
+      width: 120px;
+      height: 120px;
+
+      max-width: 120px;
+      max-height: 120px;
+    }
+
+    span {
+      margin: 10px 0;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img class="img-container" src="{{SYSTEM_LOGO}}" />
+    <br>
+
+    <span>Olá, {{nome}}!</span>
+
+    <br />
+
+    <span>Você acabou de ser cadastrado no {{SYSTEM_NICKNAME}} ({{SYSTEM_NAME}}).</span>
+    <span>Você pode realizar login na plataforma utilizando o seu email
+      <strong>{{email}}</strong>
+      e sua senha <strong>{{senha}}</strong> (não esqueça de alterá-la).
+    </span>
+
+    <strong>Atenciosamente!</strong>
+
+    <h3>Equipe | <strong>{{SYSTEM_NICKNAME}}</strong></h3>
+  </div>
+</body>
+
+</html>

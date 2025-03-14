@@ -1,0 +1,65 @@
+import { AppError } from "../../errors/AppError";
+
+const Estados = [
+  { nome: "Acre", sigla: "AC" },
+  { nome: "Alagoas", sigla: "AL" },
+  { nome: "Amapá", sigla: "AP" },
+  { nome: "Amazonas", sigla: "AM" },
+  { nome: "Bahia", sigla: "BA" },
+  { nome: "Ceará", sigla: "CE" },
+  { nome: "Distrito Federal", sigla: "DF" },
+  { nome: "Espírito Santo", sigla: "ES" },
+  { nome: "Goiás", sigla: "GO" },
+  { nome: "Maranhão", sigla: "MA" },
+  { nome: "Mato Grosso", sigla: "MT" },
+  { nome: "Mato Grosso do Sul", sigla: "MS" },
+  { nome: "Minas Gerais", sigla: "MG" },
+  { nome: "Pará", sigla: "PA" },
+  { nome: "Paraíba", sigla: "PB" },
+  { nome: "Paraná", sigla: "PR" },
+  { nome: "Pernambuco", sigla: "PE" },
+  { nome: "Piauí", sigla: "PI" },
+  { nome: "Rio de Janeiro", sigla: "RJ" },
+  { nome: "Rio Grande do Norte", sigla: "RN" },
+  { nome: "Rio Grande do Sul", sigla: "RS" },
+  { nome: "Rondônia", sigla: "RO" },
+  { nome: "Roraima", sigla: "RR" },
+  { nome: "Santa Catarina", sigla: "SC" },
+  { nome: "São Paulo", sigla: "SP" },
+  { nome: "Sergipe", sigla: "SE" },
+  { nome: "Tocantins", sigla: "TO" }
+];
+
+
+enum EstadosEnum {
+  AC = "AC",
+  AL = "AL",
+  AP = "AP",
+  AM = "AM",
+  BA = "BA",
+  CE = "CE",
+  DF = "DF",
+  ES = "ES",
+  GO = "GO",
+  MA = "MA",
+  MT = "MT",
+  MS = "MS",
+  MG = "MG",
+  PA = "PA",
+  PB = "PB",
+  PR = "PR",
+  PE = "PE",
+  PI = "PI",
+  RJ = "RJ",
+  RN = "RN",
+  RS = "RS",
+  RO = "RO",
+  RR = "RR",
+  SC = "SC",
+  SP = "SP",
+  SE = "SE",
+  TO = "TO",
+}
+
+
+export { EstadosEnum };

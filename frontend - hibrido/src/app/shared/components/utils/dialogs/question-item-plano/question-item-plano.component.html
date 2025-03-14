@@ -1,0 +1,45 @@
+<p-dialog *ngIf="selectedItemDePlano" [(visible)]="showDialog" [modal]="true" [closable]="false"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '40vw'}" [draggable]="false">
+  <ng-template pTemplate="header">
+    <div class="flex align-items-center">
+      <span class="flex align-items-center justify-content-center bg-cyan-100 text-cyan-800 mr-3 border-circle"
+        style="width:32px;height:32px">
+        <i class="pi pi-info text-lg"></i>
+      </span>
+      <span class="font-medium text-2xl text-900">{{ selectedItemDePlano.nome }}</span>
+    </div>
+  </ng-template>
+  <div class="grid">
+    <div class="col-12 line-height-3 p-0 m-1">
+      {{ selectedItemDePlano.descricao }}
+    </div>
+    <div class="col-12 border-top-1 surface-border pt-3  mt-2"></div>
+    <div class="col-12 lg:col-6 p-3 text-center">
+      <div class="shadow-2 surface-card p-3" style="border-radius: 12px">
+        <div class="flex align-items-center justify-content-between">
+          <div>
+            <span class="text-xl text-900 font-bold">{{ selectedItemDePlano.custo ? (selectedItemDePlano.custo
+              | currency:'BRL': '(R$)') : ('Não
+              estipulado') }}</span>
+            <p class="mt-2 mb-0 text-600 text-lg">Custo estimado do item</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 lg:col-6 p-3 text-center">
+      <div class="shadow-2 surface-card p-3" style="border-radius: 12px">
+        <div class="flex align-items-center justify-content-between">
+          <div>
+            <span class="text-xl text-900 font-bold">{{ selectedItemDePlano.quantidade ?
+              (selectedItemDePlano.quantidade) : ('Não
+              estipulado') }}</span>
+            <p class="mt-2 mb-0 text-600 text-lg">Quantidade de item</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple icon="pi pi-check" (click)="close()" label="OK"></button>
+  </ng-template>
+</p-dialog>
