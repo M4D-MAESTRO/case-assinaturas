@@ -1,5 +1,5 @@
 <h1 align="center">Use Case</h1>
-<h3 align="center">Sisttema para gestão de Assinaturas;</h3>
+<h3 align="center">Sistema para gestão de Assinaturas;</h3>
 
 <h5 align="center">Capacidades implementadas:</h5>
 
